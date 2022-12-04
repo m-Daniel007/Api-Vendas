@@ -2,4 +2,4 @@
 
 
 
-## _Api criada usando Typescript, Node, Postgres,_
+## _Api criada usando Typescript, Node, PostgreSQL,_
