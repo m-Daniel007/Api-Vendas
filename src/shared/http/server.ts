@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import ansi from 'ansi-colors';
 import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import router from './routes';
@@ -26,7 +27,10 @@ app.use(
   },
 );
 
-
 app.listen(3333, () => {
-  console.log('⚡⚡ Server Started!  ⚡⚡');
+  console.log(
+    ansi.bold.greenBright.italic.underline(
+      '⚡⚡ Server Started on port 3333!  ⚡⚡',
+    ),
+  );
 });
