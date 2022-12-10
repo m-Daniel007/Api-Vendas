@@ -7,7 +7,6 @@ export default class ListUserService {
     const usersRepository = getCustomRepository(UsersRepository);
 
     const users = usersRepository.find();
-
     return users;
   }
 }
