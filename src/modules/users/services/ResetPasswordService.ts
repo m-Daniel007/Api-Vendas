@@ -1,7 +1,7 @@
 import { getCustomRepository } from 'typeorm';
 import AppError from '@shared/errors/AppError';
 import { isAfter, addHours } from 'date-fns';
-import { hashSync } from 'bcrypt';
+import { hash } from 'bcrypt';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
 import UserTokensRepository from '../typeorm/repositories/UserTokensRepository';
 
@@ -32,8 +32,7 @@ export default class ResetPasswordService {
     if (isAfter(Date.now(), compareDate)) {
       throw new AppError('Token expired!');
     }
-    user.password = hashSync(password, 8);
-
+    user.password = await hash(password, 8);
     await usersRepository.save(user);
   }
 }
