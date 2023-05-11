@@ -28,8 +28,8 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-app.listen(3333, () => {
+app.listen(5555, () => {
   console.log(
-    ansi.underline.italic.bold.cyanBright("Servidor rodando na porta 3333 🚀")
+    ansi.underline.italic.bold.cyanBright("Servidor rodando na porta 5555 🚀")
   );
 });
