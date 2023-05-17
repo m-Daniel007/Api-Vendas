@@ -30,6 +30,6 @@ export default class UsersController {
     const deleteUser = new DeleteUserService();
 
     await deleteUser.execute({ id });
-    return res.json([]);
+    return res.json();
   }
 }

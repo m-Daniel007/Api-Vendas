@@ -11,7 +11,7 @@ export default class DeleteUserService {
   public async execute({ id }: IRequest): Promise<void> {
     const usersRepository = getCustomRepository(UserRepository);
 
-    const user = await usersRepository.findOne(id);
+    const user = await usersRepository.findById(id);
 
     if (!user) {
       throw new AppError("Usuário não encontrado!");
