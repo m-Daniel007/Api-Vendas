@@ -2,7 +2,7 @@ import { getCustomRepository } from "typeorm";
 import AppError from "@shared/errors/AppError";
 import User from "../typeorm/entities/Users";
 import UserRepository from "../typeorm/repositories/UserRepository";
-import { compareSync } from "bcryptjs";
+import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import authConfig from "@config/auth";
 
@@ -24,7 +24,7 @@ export default class CreateSessionsService {
       throw new AppError("E-mail ou senha incorretos!", 401);
     }
 
-    const passwordConfirmed = compareSync(password, user.password);
+    const passwordConfirmed = await compare(password, user.password);
 
     if (!passwordConfirmed) {
       throw new AppError("E-mail ou senha incorretos!", 401);

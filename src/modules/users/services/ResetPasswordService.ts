@@ -4,6 +4,7 @@ import { hash } from "bcryptjs";
 import UserRepository from "../typeorm/repositories/UserRepository";
 import UserTokensRepository from "../typeorm/repositories/UserTokensRepository";
 import { isAfter, addHours } from "date-fns";
+import { is } from "date-fns/locale";
 
 interface IRequest {
   token: string;
@@ -18,7 +19,7 @@ export default class ResetPasswordService {
     const userToken = await usersTokenRepository.findByToken(token);
 
     if (!userToken) {
-      throw new AppError("Token não encontrado !");
+      throw new AppError("Token não encontrado!");
     }
 
     const user = await usersRepository.findById(userToken.user_id);
@@ -35,5 +36,11 @@ export default class ResetPasswordService {
     }
 
     user.password = await hash(password, 8);
+
+    await usersRepository.save(user);
+
+    if (await usersRepository.save(user)) {
+      usersTokenRepository.delete(userToken.id);
+    }
   }
 }

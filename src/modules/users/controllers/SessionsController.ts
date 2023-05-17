@@ -9,6 +9,7 @@ export default class SessionsController {
 
     const user = await createSession.execute({ email, password });
 
+    res.setHeader("authorization", user.token);
     return res.json(user);
   }
 }

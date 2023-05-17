@@ -5,6 +5,7 @@ import cors from "cors";
 import morgan from "morgan";
 import ansi from "ansi-colors";
 import routes from "./routes";
+import { errors } from "celebrate";
 import AppError from "@shared/errors/AppError";
 import "@shared/typeorm";
 
@@ -16,6 +17,8 @@ app.use(morgan("dev"));
 
 app.use(routes);
 
+app.use(errors());
+
 app.use(
   (error: Error, request: Request, response: Response, next: NextFunction) => {
     if (error instanceof AppError) {
@@ -25,6 +28,7 @@ app.use(
       });
     }
 
+    //console.error(error);
     return response.status(500).json({
       status: "error",
       message: "Internal server error",
