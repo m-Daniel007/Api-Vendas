@@ -5,8 +5,10 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import OrdersProducts from "./OrdersProdutcs";
 
 @Entity("orders")
 export default class Order {
@@ -16,6 +18,11 @@ export default class Order {
   @ManyToOne(() => Customer)
   @JoinColumn({ name: "customer_id" })
   customer: Customer;
+
+  @OneToMany(() => OrdersProducts, (order_products) => order_products.order, {
+    cascade: true, // cascade: true, -> quando eu salvar um pedido, ele vai salvar os produtos automaticamente
+  })
+  order_products: OrdersProducts[];
 
   @CreateDateColumn()
   created_at: Date;
