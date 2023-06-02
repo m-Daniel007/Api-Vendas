@@ -23,10 +23,10 @@ export default class OrdersRepository extends Repository<Order> {
     return order;
   }
 
-  public async createOrder({ customer, products}: IRequest): Promise<Order> {
-    const order =  this.create({
-        order_products: products,
-        customer,
+  public async createOrder({ customer, products }: IRequest): Promise<Order> {
+    const order = this.create({
+      customer,
+      order_products:products
     });
 
     await this.save(order);

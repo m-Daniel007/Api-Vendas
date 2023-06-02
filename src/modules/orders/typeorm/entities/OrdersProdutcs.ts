@@ -5,6 +5,7 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
 import Order from "./Order";
 import Product from "@modules/products/typeorm/entities/Product";
@@ -22,8 +23,14 @@ export default class OrdersProducts {
   @JoinColumn({ name: "product_id" })
   product: Product;
 
+  @Column()
+  order_id: string;
+
+  @Column()
+  product_id: string;
+
   @Column("decimal")
-  price: string;
+  price: number;
 
   @Column("int")
   quantity: number;
@@ -31,6 +38,6 @@ export default class OrdersProducts {
   @CreateDateColumn()
   created_at: Date;
 
-  @CreateDateColumn()
+  @UpdateDateColumn()
   updated_at: Date;
 }

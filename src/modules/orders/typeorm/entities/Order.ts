@@ -20,9 +20,9 @@ export default class Order {
   customer: Customer;
 
   @OneToMany(() => OrdersProducts, (order_products) => order_products.order, {
-    cascade: true, // cascade: true, -> quando eu salvar um pedido, ele vai salvar os produtos automaticamente
+    cascade: true, 
   })
-  order_products: OrdersProducts[];
+  order_products:OrdersProducts[];
 
   @CreateDateColumn()
   created_at: Date;
