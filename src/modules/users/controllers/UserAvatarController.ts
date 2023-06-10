@@ -1,3 +1,4 @@
+import { instanceToInstance } from 'class-transformer';
 import { Request, Response } from "express";
 import UpdateUserAvatarService from "../services/UpdateUserAvatarService";
 
@@ -9,6 +10,6 @@ export default class UserAvatarController {
       user_id: req.user.id,
       avatarFileName: req.file?.filename as string,
     });
-    return res.json(user);
+    return res.json(instanceToInstance(user));
   }
 }

@@ -1,6 +1,8 @@
 import "reflect-metadata";
+import 'dotenv/config'
 import "express-async-errors";
 import express, { NextFunction, Request, Response } from "express";
+import {pagination} from 'typeorm-pagination'
 import cors from "cors";
 import morgan from "morgan";
 import ansi from "ansi-colors";
@@ -13,6 +15,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(pagination)
 app.use(morgan("dev"));
 
 app.use(routes);
