@@ -1,23 +1,31 @@
 import "reflect-metadata";
-import 'dotenv/config'
+import "dotenv/config";
 import "express-async-errors";
 import express, { NextFunction, Request, Response } from "express";
-import {pagination} from 'typeorm-pagination'
+import { pagination } from "typeorm-pagination";
 import cors from "cors";
+import  uploadConfig  from '@config/upload';
 import morgan from "morgan";
 import ansi from "ansi-colors";
 import routes from "./routes";
 import { errors } from "celebrate";
 import AppError from "@shared/errors/AppError";
 import "@shared/typeorm";
+import rateLimiter from "./middlewares/RateLimiter";
 
 const app = express();
 
 app.use(cors());
+
 app.use(express.json());
-app.use(pagination)
+
+app.use(rateLimiter);
+
+app.use(pagination);
+
 app.use(morgan("dev"));
 
+app.use("/files", express.static(uploadConfig.directory));
 app.use(routes);
 
 app.use(errors());
